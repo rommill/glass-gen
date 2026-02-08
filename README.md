@@ -1,10 +1,10 @@
-# 💎 Glassy — Cloud Glassmorphism Generator
+# Glassy — Cloud Glassmorphism Generator
 
 Glassy is a professional, full-stack Micro-SaaS tool designed for designers and developers to create, preview, and share beautiful Glassmorphism CSS effects in real-time.
 
-** Live Demo:** [https://[ВАША_ССЫЛКА_НА_VERCEL]]
+** Live Demo:** [https://glass-gen.vercel.app/](https://glass-gen.vercel.app/)
 
-![Project Preview](https://raw.githubusercontent.com/[ВАШ_НИК_НА_GITHUB]/glass-gen/main/public/preview-screenshot.png) _(Note: You can add a screenshot here later)_
+![Project Preview](https://raw.githubusercontent.com/rommill/glass-gen/main/public/preview-screenshot.png)
 
 ---
 
@@ -31,7 +31,7 @@ Glassy is a professional, full-stack Micro-SaaS tool designed for designers and 
 1.  **Clone the repository:**
 
     ```bash
-    git clone [https://github.com/](https://github.com/)[ВАШ_НИК_НА_GITHUB]/glass-gen.git
+    git clone [https://github.com/rommill/glass-gen.git](https://github.com/rommill/glass-gen.git)
     ```
 
 2.  **Install dependencies:**
@@ -59,4 +59,4 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ---
 
-_Created with ❤️ by [Roman]_
+_Created with ❤️ by Roman_
