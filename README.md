@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 💎 Glassy — Cloud Glassmorphism Generator
+
+Glassy is a professional, full-stack Micro-SaaS tool designed for designers and developers to create, preview, and share beautiful Glassmorphism CSS effects in real-time.
+
+** Live Demo:** [https://[ВАША_ССЫЛКА_НА_VERCEL]]
+
+![Project Preview](https://raw.githubusercontent.com/[ВАШ_НИК_НА_GITHUB]/glass-gen/main/public/preview-screenshot.png) _(Note: You can add a screenshot here later)_
+
+---
+
+## Features
+
+- **Real-time Editor:** Adjust blur, opacity, and color with immediate visual feedback.
+- **Cloud Gallery:** Save your presets to a global database for others to see.
+- **One-Click Export:** Instantly copy production-ready CSS code to your clipboard.
+- **Social Interaction:** Like your favorite presets to help them trend.
+- **Responsive Design:** Fully optimized for Mobile, Tablet, and Desktop.
+- **Modern UI:** Built with dark mode, Lucide icons, and sleek notifications.
+
+## Tech Stack
+
+- **Framework:** [Next.js 15](https://nextjs.org/) (App Router)
+- **Database:** [Supabase](https://supabase.com/) (PostgreSQL + Real-time)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+- **Icons:** [Lucide React](https://lucide.dev/)
+- **Notifications:** [React Hot Toast](https://react-hot-toast.com/)
+- **Deployment:** [Vercel](https://vercel.com/)
 
 ## Getting Started
 
-First, run the development server:
+1.  **Clone the repository:**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+    ```bash
+    git clone [https://github.com/](https://github.com/)[ВАШ_НИК_НА_GITHUB]/glass-gen.git
+    ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2.  **Install dependencies:**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+    ```bash
+    npm install
+    ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3.  **Set up Environment Variables:**
+    Create a `.env.local` file and add your Supabase credentials:
 
-## Learn More
+    ```env
+    NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+    NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+    ```
 
-To learn more about Next.js, take a look at the following resources:
+4.  **Run the development server:**
+    ```bash
+    npm run dev
+    ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## License
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Distributed under the MIT License. See `LICENSE` for more information.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+_Created with ❤️ by [Roman]_

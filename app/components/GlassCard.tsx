@@ -1,4 +1,5 @@
 import { CardActions } from "./CardActions";
+import { Trash2 } from "lucide-react";
 
 export const GlassCard = ({
   preset,

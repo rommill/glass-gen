@@ -1,3 +1,6 @@
+import { toast } from "react-hot-toast";
+import { Copy, Heart } from "lucide-react";
+
 interface CardActionsProps {
   preset: any;
   onLike: (e: React.MouseEvent, id: number, likes: number) => void;
@@ -15,7 +18,7 @@ export const CardActions = ({
     e.stopPropagation();
     const css = `background: rgba(${hexToRgb(preset.color)}, ${preset.opacity});\nbackdrop-filter: blur(${preset.blur}px); border: 1px solid rgba(255, 255, 255, 0.1);`;
     navigator.clipboard.writeText(css);
-    alert("CSS Copied to clipboard! ✅");
+    toast.success("Copied to clipboard!");
   };
 
   return (
