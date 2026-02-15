@@ -90,7 +90,7 @@ export default function Page() {
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {displayedPresets.map((p) => (
+            {displayedPresets.map((p: any) => (
               <div key={p.id} className="relative group">
                 {user && p.user_id === user.id && (
                   <span className="absolute -top-2 -left-2 bg-cyan-500 text-[10px] font-bold px-2 py-1 rounded-full z-20 shadow-lg uppercase">
@@ -99,10 +99,10 @@ export default function Page() {
                 )}
                 <GlassCard
                   preset={p}
-                  onApply={(p) => {
-                    setBlur(p.blur);
-                    setOpacity(p.opacity);
-                    setColor(p.color);
+                  onApply={(preset: any) => {
+                    setBlur(preset.blur);
+                    setOpacity(preset.opacity);
+                    setColor(preset.color);
                     window.scrollTo({ top: 0, behavior: "smooth" });
                   }}
                   onLike={addLike}
