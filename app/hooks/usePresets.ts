@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { supabase } from "../supabaseClient";
+import { Preset } from "../constants";
 
-export function usePresets(sortBy: string, user: any) {
-  const [presets, setPresets] = useState<any[]>([]);
+export function usePresets(sortBy: string) {
+  const [presets, setPresets] = useState<Preset[]>([]);
   const [fetching, setFetching] = useState(true);
 
   const fetchPresets = async () => {

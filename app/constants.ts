@@ -1,3 +1,13 @@
+export interface Preset {
+  id: number;
+  created_at: string;
+  user_id: string;
+  blur: number;
+  opacity: number;
+  color: string;
+  likes: number;
+}
+
 export const BACKGROUNDS = {
   dark: "bg-[#0f172a]",
   mesh: "bg-[radial-gradient(at_top_left,_#3b82f6,_#1e1b4b,_#0f172a)]",

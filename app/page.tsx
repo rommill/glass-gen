@@ -7,11 +7,12 @@ import { Editor } from "./components/Editor";
 import Auth from "./components/Auth";
 import { GalleryHeader } from "./components/GalleryHeader";
 import { BackgroundSwitcher } from "./components/BackgroundSwitcher";
-import { BACKGROUNDS, BgType, hexToRgb } from "./constants";
+import { Preset, BACKGROUNDS, BgType, hexToRgb } from "./constants";
 import { usePresets } from "./hooks/usePresets";
+import { User } from "@supabase/supabase-js";
 
 export default function Page() {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [filterMyOwn, setFilterMyOwn] = useState(false);
   const [sortBy, setSortBy] = useState<"likes" | "created_at">("likes");
   const [bgType, setBgType] = useState<BgType>("dark");
@@ -20,10 +21,8 @@ export default function Page() {
   const [opacity, setOpacity] = useState(0.52);
   const [color, setColor] = useState("#ffffff");
 
-  const { presets, fetching, fetchPresets, addLike, deletePreset } = usePresets(
-    sortBy,
-    user,
-  );
+  const { presets, fetching, fetchPresets, addLike, deletePreset } =
+    usePresets(sortBy);
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => setUser(data.user));
@@ -90,7 +89,7 @@ export default function Page() {
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {displayedPresets.map((p: any) => (
+            {displayedPresets.map((p: Preset) => (
               <div key={p.id} className="relative group">
                 {user && p.user_id === user.id && (
                   <span className="absolute -top-2 -left-2 bg-cyan-500 text-[10px] font-bold px-2 py-1 rounded-full z-20 shadow-lg uppercase">
@@ -99,7 +98,7 @@ export default function Page() {
                 )}
                 <GlassCard
                   preset={p}
-                  onApply={(preset: any) => {
+                  onApply={(preset: Preset) => {
                     setBlur(preset.blur);
                     setOpacity(preset.opacity);
                     setColor(preset.color);
