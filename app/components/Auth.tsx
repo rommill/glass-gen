@@ -7,7 +7,7 @@ export default function Auth() {
   const [email, setEmail] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [user, setUser] = useState<User | null>(null);
-  const [isOpen, setIsOpen] = useState(false); // Состояние для мобильного раскрытия
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data: { user } }) => {
@@ -33,7 +33,6 @@ export default function Auth() {
     setLoading(false);
   };
 
-  // 1. Состояние залогиненного пользователя (всегда компактно)
   if (user) {
     return (
       <div className="bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-2xl shadow-xl w-full max-w-[320px] mx-auto lg:mx-0">
@@ -55,11 +54,9 @@ export default function Auth() {
     );
   }
 
-  // 2. Состояние формы (сворачиваемая на мобилках)
   return (
     <div className="w-full max-w-[320px] mx-auto lg:mx-0">
       {!isOpen ? (
-        // Кнопка-заглушка для мобилок
         <button
           onClick={() => setIsOpen(true)}
           className="w-full py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl text-white font-medium hover:bg-white/20 transition-all lg:hidden"
@@ -71,7 +68,6 @@ export default function Auth() {
       <div
         className={`${!isOpen ? "hidden lg:block" : "block"} bg-white/10 backdrop-blur-lg border border-white/20 p-6 rounded-2xl shadow-2xl w-full relative`}
       >
-        {/* Кнопка закрытия для мобилок */}
         {isOpen && (
           <button
             onClick={() => setIsOpen(false)}

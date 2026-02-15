@@ -10,12 +10,22 @@ Glassy is a professional, full-stack Micro-SaaS tool designed for designers and 
 
 ## Features
 
-- **Real-time Editor:** Adjust blur, opacity, and color with immediate visual feedback.
-- **Cloud Gallery:** Save your presets to a global database for others to see.
-- **One-Click Export:** Instantly copy production-ready CSS code to your clipboard.
-- **Social Interaction:** Like your favorite presets to help them trend.
-- **Responsive Design:** Fully optimized for Mobile, Tablet, and Desktop.
-- **Modern UI:** Built with dark mode, Lucide icons, and sleek notifications.
+- **Real-time Editor:** Adjust blur, opacity, and color with instant preview.
+- **Cloud Storage:** Save your favorite presets to a global gallery.
+- **Authentication:** Secure sign-in via Magic Links.
+- **Advanced Security:** Implemented **Row Level Security (RLS)** in Supabase. Users can only edit or delete their own presets.
+- **UX Focused:** - Responsive design (optimized for mobile).
+  - Skeleton loaders for smooth data fetching.
+  - Interactive "Likes" system.
+  - Ownership badges ("You" indicator for personal presets).
+
+## Security Architecture
+
+Unlike simple CRUD apps, this project uses **Supabase RLS policies**:
+
+- `SELECT`: Public access for all community presets.
+- `INSERT`: Authenticated users only.
+- `DELETE/UPDATE`: Restricted to the creator using `auth.uid() == user_id`.
 
 ## Tech Stack
 
@@ -59,4 +69,4 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ---
 
-_Created with ❤️ by Roman_
+_Created by Roman_
