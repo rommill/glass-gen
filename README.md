@@ -1,72 +1,70 @@
-# Glassy — Cloud Glassmorphism Generator
+Glassy - Cloud Glassmorphism Studio
+Glassy is a high-performance, full-stack design tool built for modern web developers. It allows you to create, orchestrate, and share glassmorphism effects with a focus on fluid UX and secure data management.
 
-Glassy is a professional, full-stack Micro-SaaS tool designed for designers and developers to create, preview, and share beautiful Glassmorphism CSS effects in real-time.
+Live Demo: https://glass-gen.vercel.app/
 
-** Live Demo:** [https://glass-gen.vercel.app/](https://glass-gen.vercel.app/)
+Recent Updates (Feb 2026)
+Fluid Motion System: Integrated Framer Motion for liquid-smooth layout transitions and micro-interactions.
 
-![Project Preview](https://raw.githubusercontent.com/rommill/glass-gen/main/public/preview-screenshot.png)
+Relational "Likes" Engine: Migrated to a dedicated PostgreSQL relation to prevent like-padding and ensure unique user engagement.
 
----
+Enhanced Export: Added one-click CSS file generation in addition to clipboard copying.
 
-## Features
+Layout Stability: Implemented popLayout strategies to eliminate layout shifts during real-time sorting and filtering.
 
-- **Real-time Editor:** Adjust blur, opacity, and color with instant preview.
-- **Cloud Storage:** Save your favorite presets to a global gallery.
-- **Authentication:** Secure sign-in via Magic Links.
-- **Advanced Security:** Implemented **Row Level Security (RLS)** in Supabase. Users can only edit or delete their own presets.
-- **UX Focused:** - Responsive design (optimized for mobile).
-  - Skeleton loaders for smooth data fetching.
-  - Interactive "Likes" system.
-  - Ownership badges ("You" indicator for personal presets).
+Features
+Precision Editor: Real-time control over blur, opacity, and hex-color with immediate visual feedback.
 
-## Security Architecture
+Community Gallery: A global feed of community-created presets with Smart Sorting (Popular vs. Recent).
 
-Unlike simple CRUD apps, this project uses **Supabase RLS policies**:
+Smart Auth: Secure passwordless authentication via Supabase Magic Links.
 
-- `SELECT`: Public access for all community presets.
-- `INSERT`: Authenticated users only.
-- `DELETE/UPDATE`: Restricted to the creator using `auth.uid() == user_id`.
+Developer Experience: Instant CSS code generation with vendor prefixes for cross-browser support (Webkit/Backdrop-filter).
 
-## Tech Stack
+Security & Architecture
+This project goes beyond basic CRUD by implementing a robust PostgreSQL-level security layer:
 
-- **Framework:** [Next.js 15](https://nextjs.org/) (App Router)
-- **Database:** [Supabase](https://supabase.com/) (PostgreSQL + Real-time)
-- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
-- **Icons:** [Lucide React](https://lucide.dev/)
-- **Notifications:** [React Hot Toast](https://react-hot-toast.com/)
-- **Deployment:** [Vercel](https://vercel.com/)
+Row Level Security (RLS): Sophisticated policies ensure that while everyone can browse, only owners have write/delete permissions.
 
-## Getting Started
+Relational Integrity: Uses ON DELETE CASCADE to maintain database cleanliness when presets are removed.
 
-1.  **Clone the repository:**
+Performance: Optimized queries using Supabase complex selects to fetch aggregate like counts and user-specific states in a single round-trip.
 
-    ```bash
-    git clone [https://github.com/rommill/glass-gen.git](https://github.com/rommill/glass-gen.git)
-    ```
+SQL
+-- Example of the RLS logic used:
+create policy "Individual delete" on public.presets
+for delete to authenticated
+using (auth.uid() = user_id);
 
-2.  **Install dependencies:**
+Tech Stack
+Frontend: Next.js 15 (App Router, React 19)
 
-    ```bash
-    npm install
-    ```
+Animations: Framer Motion
 
-3.  **Set up Environment Variables:**
-    Create a `.env.local` file and add your Supabase credentials:
+Backend/DB: Supabase (PostgreSQL)
 
-    ```env
-    NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-    NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-    ```
+Styling: Tailwind CSS
 
-4.  **Run the development server:**
-    ```bash
-    npm run dev
-    ```
+Components: Lucide React, React Hot Toast
 
-## License
+Getting Started
+Clone & Install:
 
-Distributed under the MIT License. See `LICENSE` for more information.
+Bash
+git clone https://github.com/rommill/glass-gen.git
+npm install
+Environment Setup:
+Create a .env.local:
 
----
+Фрагмент кода
+NEXT_PUBLIC_SUPABASE_URL=your_project_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
+Development:
 
-_Created by Roman_
+Bash
+npm run dev
+
+License
+Distributed under the MIT License.
+
+Built by Roman
