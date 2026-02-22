@@ -12,7 +12,7 @@ Enhanced Export: Added one-click CSS file generation in addition to clipboard co
 
 Layout Stability: Implemented popLayout strategies to eliminate layout shifts during real-time sorting and filtering.
 
-Features
+Features:
 Precision Editor: Real-time control over blur, opacity, and hex-color with immediate visual feedback.
 
 Community Gallery: A global feed of community-created presets with Smart Sorting (Popular vs. Recent).
@@ -30,13 +30,13 @@ Relational Integrity: Uses ON DELETE CASCADE to maintain database cleanliness wh
 
 Performance: Optimized queries using Supabase complex selects to fetch aggregate like counts and user-specific states in a single round-trip.
 
-SQL
+SQL:
 -- Example of the RLS logic used:
 create policy "Individual delete" on public.presets
 for delete to authenticated
 using (auth.uid() = user_id);
 
-Tech Stack
+Tech Stack:
 Frontend: Next.js 15 (App Router, React 19)
 
 Animations: Framer Motion
@@ -50,21 +50,21 @@ Components: Lucide React, React Hot Toast
 Getting Started
 Clone & Install:
 
-Bash
+Bash:
 git clone https://github.com/rommill/glass-gen.git
 npm install
 Environment Setup:
 Create a .env.local:
 
-Фрагмент кода
+Code snippet:
 NEXT_PUBLIC_SUPABASE_URL=your_project_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
 Development:
 
-Bash
+Bash:
 npm run dev
 
-License
+License:
 Distributed under the MIT License.
 
 Built by Roman
