@@ -10,6 +10,7 @@ import { BackgroundSwitcher } from "./components/BackgroundSwitcher";
 import { Preset, BACKGROUNDS, BgType, hexToRgb } from "./constants";
 import { usePresets } from "./hooks/usePresets";
 import { User } from "@supabase/supabase-js";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Page() {
   const [user, setUser] = useState<User | null>(null);
@@ -34,9 +35,14 @@ export default function Page() {
 
   const saveToCloud = async () => {
     if (!user) return alert("Please sign in!");
-    const { error } = await supabase
-      .from("presets")
-      .insert([{ blur, opacity, color, likes: 0, user_id: user.id }]);
+    const { error } = await supabase.from("presets").insert([
+      {
+        blur,
+        opacity,
+        color,
+        user_id: user.id,
+      },
+    ]);
     if (!error) fetchPresets();
   };
 
@@ -47,6 +53,7 @@ export default function Page() {
   return (
     <div
       className={`min-h-screen ${BACKGROUNDS[bgType]} text-white p-8 flex flex-col items-center relative transition-all duration-700`}
+      style={{ overflowAnchor: "none" }} // Фикс для скролла
     >
       <div className="w-full lg:absolute lg:top-8 lg:right-8 lg:w-auto z-50 p-4 lg:p-0">
         <Auth />
@@ -69,7 +76,7 @@ export default function Page() {
         hexToRgb={hexToRgb}
       />
 
-      <div className="w-full max-w-6xl mt-12">
+      <div className="w-full max-w-6xl mt-12 min-h-[600px]">
         <GalleryHeader
           filterMyOwn={filterMyOwn}
           setFilterMyOwn={setFilterMyOwn}
@@ -78,7 +85,10 @@ export default function Page() {
           user={user}
         />
 
-        {fetching ? (
+        {/* МЕНЯЕМ ЛОГИКУ: Скелетоны показываем ТОЛЬКО при самой первой загрузке,
+            когда список пресетов пуст. При переключении фильтров используем AnimatePresence.
+        */}
+        {fetching && presets.length === 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[...Array(4)].map((_, i) => (
               <div
@@ -89,29 +99,42 @@ export default function Page() {
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {displayedPresets.map((p: Preset) => (
-              <div key={p.id} className="relative group">
-                {user && p.user_id === user.id && (
-                  <span className="absolute -top-2 -left-2 bg-cyan-500 text-[10px] font-bold px-2 py-1 rounded-full z-20 shadow-lg uppercase">
-                    You
-                  </span>
-                )}
-                <GlassCard
-                  preset={p}
-                  onApply={(preset: Preset) => {
-                    setBlur(preset.blur);
-                    setOpacity(preset.opacity);
-                    setColor(preset.color);
-                    window.scrollTo({ top: 0, behavior: "smooth" });
+            <AnimatePresence mode="popLayout" initial={false}>
+              {displayedPresets.map((p: Preset) => (
+                <motion.div
+                  key={p.id}
+                  layout
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{
+                    duration: 0.4,
+                    layout: { type: "spring", stiffness: 300, damping: 30 },
                   }}
-                  onLike={addLike}
-                  hexToRgb={hexToRgb}
-                  onDelete={
-                    user && p.user_id === user.id ? deletePreset : undefined
-                  }
-                />
-              </div>
-            ))}
+                  className="relative group"
+                >
+                  {user && p.user_id === user.id && (
+                    <span className="absolute -top-2 -left-2 bg-cyan-500 text-[10px] font-bold px-2 py-1 rounded-full z-20 shadow-lg uppercase pointer-events-none">
+                      You
+                    </span>
+                  )}
+                  <GlassCard
+                    preset={p}
+                    onApply={(preset: Preset) => {
+                      setBlur(preset.blur);
+                      setOpacity(preset.opacity);
+                      setColor(preset.color);
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }}
+                    onLike={addLike}
+                    hexToRgb={hexToRgb}
+                    onDelete={
+                      user && p.user_id === user.id ? deletePreset : undefined
+                    }
+                  />
+                </motion.div>
+              ))}
+            </AnimatePresence>
           </div>
         )}
       </div>

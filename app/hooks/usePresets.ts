@@ -8,11 +8,31 @@ export function usePresets(sortBy: string) {
 
   const fetchPresets = async () => {
     setFetching(true);
+
     const { data, error } = await supabase
       .from("presets")
-      .select("*")
-      .order(sortBy, { ascending: false });
-    if (!error && data) setPresets(data);
+      .select(
+        `
+        *,
+        likes:likes(count),
+        my_like:likes(user_id)
+      `,
+      )
+      .order(sortBy === "likes" ? "created_at" : sortBy, { ascending: false });
+
+    if (!error && data) {
+      const formattedData = data.map((p: any) => ({
+        ...p,
+        likes: p.likes[0]?.count || 0,
+        isLiked: p.my_like?.length > 0,
+      }));
+
+      if (sortBy === "likes") {
+        formattedData.sort((a, b) => b.likes - a.likes);
+      }
+
+      setPresets(formattedData);
+    }
     setFetching(false);
   };
 
@@ -20,16 +40,30 @@ export function usePresets(sortBy: string) {
     fetchPresets();
   }, [sortBy]);
 
-  const addLike = async (
-    e: React.MouseEvent,
-    id: number,
-    currentLikes: number,
-  ) => {
+  const addLike = async (e: React.MouseEvent, presetId: number) => {
     e.stopPropagation();
-    await supabase
-      .from("presets")
-      .update({ likes: currentLikes + 1 })
-      .eq("id", id);
+
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (!user) return alert("Войдите, чтобы ставить лайки!");
+
+    const { data: existingLike } = await supabase
+      .from("likes")
+      .select("id")
+      .eq("user_id", user.id)
+      .eq("preset_id", presetId)
+      .single();
+
+    if (existingLike) {
+      await supabase.from("likes").delete().eq("id", existingLike.id);
+    } else {
+      await supabase.from("likes").insert({
+        user_id: user.id,
+        preset_id: presetId,
+      });
+    }
+
     fetchPresets();
   };
 

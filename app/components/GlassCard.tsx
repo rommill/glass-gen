@@ -1,5 +1,5 @@
 import { CardActions } from "./CardActions";
-import { Trash2 } from "lucide-react";
+import { motion } from "framer-motion";
 
 export const GlassCard = ({
   preset,
@@ -8,19 +8,21 @@ export const GlassCard = ({
   onDelete,
   hexToRgb,
 }: any) => (
-  <div
+  <motion.div
+    whileHover={{ scale: 1.02 }}
+    whileTap={{ scale: 0.98 }}
     onClick={() => onApply(preset)}
-    className="group relative bg-slate-800/30 border border-slate-700 rounded-2xl p-4 cursor-pointer hover:border-indigo-500 transition-all hover:-translate-y-1 shadow-xl"
+    className="group relative bg-slate-800/30 border border-slate-700 rounded-2xl p-4 cursor-pointer hover:border-indigo-500 transition-all shadow-xl"
   >
-    {/* delete button */}
-    <button
-      onClick={(e) => onDelete(e, preset.id)}
-      className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white p-1 rounded-md transition-all z-10"
-    >
-      ✕
-    </button>
+    {onDelete && (
+      <button
+        onClick={(e) => onDelete(e, preset.id)}
+        className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white p-1 rounded-md transition-all z-10"
+      >
+        ✕
+      </button>
+    )}
 
-    {/* preview */}
     <div className="h-28 bg-slate-900/50 rounded-xl mb-2 flex items-center justify-center relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-transparent"></div>
       <div
@@ -40,5 +42,5 @@ export const GlassCard = ({
       onDelete={onDelete}
       hexToRgb={hexToRgb}
     />
-  </div>
+  </motion.div>
 );
