@@ -3,42 +3,54 @@ Glassy is a high-performance, full-stack design tool built for modern web develo
 
 Live Demo: https://glass-gen.vercel.app/
 
-Recent Updates (Feb 2026)
-Fluid Motion System: Integrated Framer Motion for liquid-smooth layout transitions and micro-interactions.
+##  Recent Updates (Feb 2026)
 
-Relational "Likes" Engine: Migrated to a dedicated PostgreSQL relation to prevent like-padding and ensure unique user engagement.
+- **Fluid Motion System** — Integrated Framer Motion for liquid-smooth layout transitions and micro-interactions.
 
-Enhanced Export: Added one-click CSS file generation in addition to clipboard copying.
+- **Relational Likes Engine** — Migrated to a dedicated PostgreSQL relation to prevent like-padding and ensure unique user engagement.
 
-Layout Stability: Implemented popLayout strategies to eliminate layout shifts during real-time sorting and filtering.
+- **Enhanced Export** — Added one-click CSS file generation in addition to clipboard copying.
 
-Features:
-Precision Editor: Real-time control over blur, opacity, and hex-color with immediate visual feedback.
+- **Layout Stability** — Implemented popLayout strategies to eliminate layout shifts during real-time sorting and filtering.
 
-Community Gallery: A global feed of community-created presets with Smart Sorting (Popular vs. Recent).
+##  Features:
 
-Smart Auth: Secure passwordless authentication via Supabase Magic Links.
+- **Precision Editor** — Real-time control over blur, opacity, and color with instant visual feedback  
+- **Community Gallery** — Global feed with smart sorting (Popular / Recent)  
+- **CSS Export** — One-click generation of production-ready styles  
+- **Passwordless Auth** — Secure authentication via Supabase Magic Links  
+- **Fluid UI** — Smooth animations and layout transitions using Framer Motion  
+- **Developer Experience** — Instant CSS code generation with vendor prefixes for cross-browser support (Webkit/Backdrop-filter).
 
-Developer Experience: Instant CSS code generation with vendor prefixes for cross-browser support (Webkit/Backdrop-filter).
 
-Security & Architecture
+##  Security & Architecture:
+
 This project goes beyond basic CRUD by implementing a robust PostgreSQL-level security layer:
 
-Row Level Security (RLS): Sophisticated policies ensure that while everyone can browse, only owners have write/delete permissions.
+- **Row Level Security (RLS):** Sophisticated policies ensure that while everyone can browse, only owners have write/delete permissions.
+- **Relational Integrity:** Uses `ON DELETE CASCADE` to maintain database cleanliness.
+- **Performance:** Optimized queries using Supabase complex selects to fetch aggregate like counts and user states in a single round-trip.
 
-Relational Integrity: Uses ON DELETE CASCADE to maintain database cleanliness when presets are removed.
-
-Performance: Optimized queries using Supabase complex selects to fetch aggregate like counts and user-specific states in a single round-trip.
-
-SQL:
--- Example of the RLS logic used:
+### Example: RLS Logic
+```sql
+-- Only the owner can delete their own presets
 create policy "Individual delete" on public.presets
 for delete to authenticated
 using (auth.uid() = user_id);
+```
 
-Tech Stack:
-Frontend: Next.js 15 (App Router, React 19)
 
+##  Tech Stack
+
+Frontend: Next.js (App Router), React, TypeScript
+
+Styling: Tailwind CSS
+
+Animations: Framer Motion
+
+Backend / DB: Supabase (PostgreSQL)
+
+UI Components: Lucide React, React Hot Toast
 Animations: Framer Motion
 
 Backend/DB: Supabase (PostgreSQL)
@@ -52,7 +64,7 @@ Clone & Install:
 
 Bash:
 git clone https://github.com/rommill/glass-gen.git
-npm install
+pnpm install
 Environment Setup:
 Create a .env.local:
 
@@ -62,7 +74,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
 Development:
 
 Bash:
-npm run dev
+pnpm run dev
 
 License:
 Distributed under the MIT License.
